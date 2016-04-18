@@ -1,0 +1,87 @@
+<%= form_for @page do |f| %>
+
+<!-- 	<%#= f.fields_for :payment_methods do |p| %>
+		<p class="text-center"><strong>Payment Method</strong></p>
+
+		<div class="row">
+			<div class="col-sm-12 col-md-12">
+				<div class="form-group">
+					<%#= p.label :transferencia_bancaria %>
+					<%#= p.check_box :transferencia_bancaria, class: "form-control" %>
+				</div>
+				<div class="form-group">
+					<%#= p.label :pago_en_tienda %>
+					<%#= p.check_box :pago_en_tienda, class: "form-control" %>
+				</div>	
+			</div>	
+
+		</div>		
+						
+	<%# end %> -->
+
+
+	<%= f.fields_for :orders do |o| %>
+
+				<p class="text-center"><strong>Payment Method</strong></p>
+				<div class="col-sm-6 col-md-6 contact-info">
+							<div class="row">
+					<div class="col-sm-12 col-md-12">
+						<div class="form-group">
+							<%= o.label :transferencia_bancaria %>
+							<%= o.check_box :transferencia_bancaria, class: "form-control" %>
+
+						</div>
+						<div class="form-group">
+							<%= o.label :pago_en_tienda %>
+							<%= o.check_box :pago_en_tienda, class: "form-control" %>
+						</div>	
+					</div>	
+
+				</div>	
+
+				<%= select("variation", "size", Variation.all.collect {|p| [ p.size, p.id ] }, {include_blank: 'None'}) %>
+
+				<p class="text-center"><strong>Tus Datos</strong></p>
+				<div class="row">
+					<div class="col-sm-6 col-md-6">
+
+					    <div class="form-group">
+				          <%= o.label :nombre %>
+				          <%= o.text_field :first_name, class: "form-control" %>
+				        </div>
+						
+
+					</div>
+					<div class="col-sm-6 col-md-6">
+						<div class="form-group">
+				          <%= o.label :apellido %>
+				          <%= o.text_field :last_name, class: "form-control" %>
+				        </div>
+					</div>
+				</div>
+					<div class="form-group">
+				          <%= o.label :correo_electronico %>
+				          <%= o.text_field :email, class: "form-control" %>
+				    </div>
+
+			</div>
+		<div class="col-sm-6 col-md-6">
+			<p class="text-center"><strong>Direccion de despacho</strong></p>
+
+			<div class="form-group">
+				<%= o.label :direccion %>
+				<%= o.text_field :address, class: "form-control" %>
+			 </div>
+
+			<div class="form-group">
+				<%= o.label :ciudad %>
+				<%= o.text_field :ciudad, class: "form-control" %>
+			 </div>				
+			<%= f.submit "Comprar", class: "btn btn-store btn-block" %>
+			
+
+		</div>
+			
+	<% end %>
+
+<% end %>

@@ -1,0 +1,21 @@
+<section id="about" class="padding-top-bottom ">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 wow fadeInLeft">
+				<header class="section-header cta-message">
+					<h2>Felicitaciones!</h2>
+					<h4><%= @orders.last.first_name %> <%= @orders.last.last_name %></h4>
+				</header>
+			</div>
+			<div class="col-md-8 cta-message wow fadeIn">
+				<p>Tu orden ha sido procesada con exito!</p>
+				<p>Tu orden sera enviada con los siguientes datos de despacho:</p>
+
+				<p>Direccion: <%= @orders.last.address %></p>
+				<p>Ciudad: <%= @orders.last.ciudad %></p>
+
+				<%= link_to "Volver al Inicio", root_path, class: "btn btn-store outline" %>
+			</div>
+		</div>
+	</div>
+</section>

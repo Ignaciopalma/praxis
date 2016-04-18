@@ -1,0 +1,27 @@
+<%= fields_for @order do |o| %>
+<p class="text-center"><strong>Tus Datos</strong></p>
+	<div class="row">
+		<div class="col-sm-6 col-md-6">
+
+		    <div class="form-group">
+	          <%= o.label :nombre %>
+	          <%= o.text_field :first_name, class: "form-control" %>
+	        </div>
+			
+
+		</div>
+		<div class="col-sm-6 col-md-6">
+			<div class="form-group">
+	          <%= o.label :apellido %>
+	          <%= o.text_field :last_name, class: "form-control" %>
+	        </div>
+		</div>
+	</div>
+		<div class="form-group">
+	          <%= o.label :correo_electronico %>
+	          <%= o.text_field :email, class: "form-control" %>
+	    </div>
+
+	<%= o.submit "Reservar", class: "btn btn-store btn-block" %>
+
+<% end %>
