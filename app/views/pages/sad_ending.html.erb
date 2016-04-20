@@ -3,16 +3,17 @@
 		<div class="row">
 			<div class="col-md-4 wow fadeInLeft">
 				<header class="section-header cta-message">
-					<h2>Felicitaciones!</h2>
-					<h4><%= @orders.last.first_name %> <%= @orders.last.last_name %></h4>
+					<h2>Ha ocurrido un error :(</h2>
 				</header>
 			</div>
 			<div class="col-md-8 cta-message wow fadeIn">
-				<p>Tu orden ha sido procesada con exito!</p>
-				<p>Tu orden sera enviada con los siguientes datos de despacho:</p>
 
-				<p>Direccion: <%= @orders.last.address %></p>
-				<p>Ciudad: <%= @orders.last.ciudad %></p>
+				<p>Al parecer el error es el siguiente:</p>
+				<% if @page.errors.full_messages.any? %>
+				<% @page.errors.full_messages.each do |error_message| %>
+				<%= error_message if @page.errors.full_messages.first == error_message %> <br />
+				<% end %>
+				<% end %>
 
 				<%= link_to "Volver al Inicio", root_path, class: "btn btn-store outline" %>
 			</div>

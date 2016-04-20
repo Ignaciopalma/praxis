@@ -1,34 +1,96 @@
 <%= form_for @page do |f| %>
-
-<!-- 	<%#= f.fields_for :payment_methods do |p| %>
-		<p class="text-center"><strong>Payment Method</strong></p>
-
+	
+	<%= f.fields_for :products do |o| %>
 		<div class="row">
-			<div class="col-sm-12 col-md-12">
-				<div class="form-group">
-					<%#= p.label :transferencia_bancaria %>
-					<%#= p.check_box :transferencia_bancaria, class: "form-control" %>
-				</div>
-				<div class="form-group">
-					<%#= p.label :pago_en_tienda %>
-					<%#= p.check_box :pago_en_tienda, class: "form-control" %>
-				</div>	
-			</div>	
+		<div class="col-sm-12 col-md-12">
+		<table class="table">
+		  <thead>
+			<tr>
+			  <th>Product</th>
+			  <th>Unit Cost</th>
+			  <th class="text-center">
+			  <span class="hidden-xs">Quantity</span>
+			  <span class="visible-xs">QNT</span>
+			  </th>
+			  <th class="text-right">Total</th>
+			</tr>
+		  </thead>
+		  <tbody>
+			<tr>
+			  <td class="vert-align"><%= select("products", "product_name", Product.all.collect {|p| [ p.product_name, p.id ] }, {include_blank: 'None'}) %></td>
+			  <td class="vert-align">{{ 700 | currency:"$":0 }}</td>
+			  <td class="text-center">
+				<select class="form-control form-control-inline" ng-model="myBed" ng-options="opt as opt.label for opt in options"></select>
+			  </td>
+			  <td class="text-right vert-align">{{ myBed.value * 700 | currency:"$":0  }}</td>
+			</tr>							
+			<tr>
+			  <td class="vert-align">Nightstand</td>
+			  <td class="vert-align">{{ 400 | currency:"$":0  }}</td>
+			  <td class="text-center">
+				<select class="form-control form-control-inline" ng-model="myNightstand" ng-options="opt as opt.label for opt in options"></select>
+			  </td>
+			  <td class="text-right vert-align">{{ myNightstand.value * 400 | currency:"$":0  }}</td>
+			</tr>							
+			<tr>
+			  <td class="vert-align">Hammock</td>
+			  <td class="vert-align">{{ 600 | currency:"$":0  }}</td>
+			  <td class="text-center">
+				<select class="form-control form-control-inline" ng-model="myHammock" ng-options="opt as opt.label for opt in options"></select>
+			  </td>
+			  <td class="text-right vert-align">{{ myHammock.value * 600 | currency:"$":0  }}</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		  </tbody>
+		</table>
+		</div>	
 
-		</div>		
-						
-	<%# end %> -->
 
+			<div class="col-sm-6 col-md-6">
+
+				<table class="table">
+				  <thead>
+					<tr>
+					  <th colspan="3" class="text-center">Order sumary</th>
+					</tr>
+				  </thead>
+				  <tbody>
+					<tr>
+					  <td>Shipping cost:</td>
+					  <td></td>
+					  <td class="text-right">Free</td>
+					</tr>
+					<tr>
+					  <td>Total:</td>
+					  <td></td>
+					  <td id="total" class="text-right">{{ (myBed.value * 700) +  (myNightstand.value * 400) + (myHammock.value * 600) | currency }}</td>
+					</tr>
+				  </tbody>
+				</table>
+				<p>
+				</p>
+				<input type="hidden" name="submitted" id="submitted" value="true">
+			</div>
+
+		</div>
+	<% end %> 
 
 	<%= f.fields_for :orders do |o| %>
 
-				<p class="text-center"><strong>Payment Method</strong></p>
-				<div class="col-sm-6 col-md-6 contact-info">
-							<div class="row">
+
+			<p class="text-center"><strong>Payment Method</strong></p>
+			<div class="col-sm-6 col-md-6 contact-info">
+				<div class="row">
 					<div class="col-sm-12 col-md-12">
 						<div class="form-group">
 							<%= o.label :transferencia_bancaria %>
 							<%= o.check_box :transferencia_bancaria, class: "form-control" %>
+							
 
 						</div>
 						<div class="form-group">
@@ -39,9 +101,8 @@
 
 				</div>	
 
-				<%= select("variation", "size", Variation.all.collect {|p| [ p.size, p.id ] }, {include_blank: 'None'}) %>
-
 				<p class="text-center"><strong>Tus Datos</strong></p>
+
 				<div class="row">
 					<div class="col-sm-6 col-md-6">
 
@@ -59,29 +120,35 @@
 				        </div>
 					</div>
 				</div>
+
 					<div class="form-group">
 				          <%= o.label :correo_electronico %>
 				          <%= o.text_field :email, class: "form-control" %>
 				    </div>
-
-			</div>
-		<div class="col-sm-6 col-md-6">
-			<p class="text-center"><strong>Direccion de despacho</strong></p>
-
-			<div class="form-group">
-				<%= o.label :direccion %>
-				<%= o.text_field :address, class: "form-control" %>
-			 </div>
-
-			<div class="form-group">
-				<%= o.label :ciudad %>
-				<%= o.text_field :ciudad, class: "form-control" %>
-			 </div>				
-			<%= f.submit "Comprar", class: "btn btn-store btn-block" %>
-			
-
-		</div>
-			
+				    <div class="form-group">
+				          <%= o.label :rut %>
+				          <%= o.number_field :rut, class: "form-control" %>
+				    </div>
+				    <div class="form-group">
+				          <%= o.label :telefono %>
+				          <%= o.number_field :phone, class: "form-control" %>
+				    </div>
+				    <div class="form-group">
+				          <%= o.label :abono %>
+				          <%= o.text_field :abono, class: "form-control", value: "{{ 0.4 * ((myBed.value * 700) +  (myNightstand.value * 400) + (myHammock.value * 600)) | currency }}", :readonly => true    %>
+				    </div>
+				    <div class="form-group">
+				          <%= o.label :saldo %>
+				          <%= o.text_field :saldo, class: "form-control", value: "{{ 0.4 * ((myBed.value * 700) +  (myNightstand.value * 400) + (myHammock.value * 600)) | currency }}", :readonly => true  %>
+				    </div>
+				    <div class="form-group">
+				          <%= o.label :total %>
+				          <%= o.text_field :total, class: "form-control", value: "{{ (myBed.value * 700) +  (myNightstand.value * 400) + (myHammock.value * 600) | currency }}", :readonly => true %>
+				    </div>
+			</div>	
+					
 	<% end %>
+				<%= f.submit "Comprar", class: "btn btn-store btn-block" %>
+
 
 <% end %>

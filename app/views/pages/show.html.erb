@@ -1,0 +1,30 @@
+
+<section id="about" class="padding-top-bottom ">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 wow fadeInLeft">
+				<header class="section-header cta-message">
+					<h2>Felicitaciones!</h2>
+					<h4><%= @order.first_name %> <%= @order.last_name %></h4>
+				</header>
+			</div>
+			<div class="col-md-8 cta-message wow fadeIn">
+				<p>Tu orden ha sido procesada con exito!</p>
+				<p>Los datos de la compra son los siguientes</p>
+
+				<p>Pago en tienda <%= @order.pago_en_tienda %> %></p>
+				<p>Transferencia Bancaria <%= @order.transferencia_bancaria %> %></p>
+				<p>Rut: <%= @order.rut %></p>
+
+				<p>Abono: <%= @order.abono %> %></p>
+				<p>Total: <%= @order.total %></p>
+				<p>ID <%= @order.id %></p>
+
+
+	
+
+				<%= link_to "Volver al Inicio", root_path, class: "btn btn-store outline" %>
+			</div>
+		</div>
+	</div>
+</section>

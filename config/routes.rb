@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  devise_for :admins, controllers: { registrations: "registrations"}
   root 'pages#index'
 
   get 'happy_ending' => 'pages#happy_ending'
@@ -9,6 +10,9 @@ Rails.application.routes.draw do
   resources :orders
 
   resources :contacts
+
+  get 'admin_index' => 'admin#index'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

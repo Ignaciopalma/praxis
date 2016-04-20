@@ -11,7 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160417234825) do
+ActiveRecord::Schema.define(version: 20160419220842) do
+
+  create_table "admins", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "admins", ["email"], name: "index_admins_on_email", unique: true
+  add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
 
   create_table "contacts", force: :cascade do |t|
     t.string   "name"
@@ -35,6 +53,11 @@ ActiveRecord::Schema.define(version: 20160417234825) do
     t.integer  "page_id"
     t.integer  "variation_id"
     t.integer  "product_id"
+    t.integer  "rut"
+    t.string   "region"
+    t.integer  "total"
+    t.integer  "abono"
+    t.integer  "saldo"
   end
 
   add_index "orders", ["page_id"], name: "index_orders_on_page_id"
@@ -46,23 +69,16 @@ ActiveRecord::Schema.define(version: 20160417234825) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "payment_methods", force: :cascade do |t|
-    t.boolean  "transferencia_bancaria"
-    t.boolean  "pago_en_tienda"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "order_id"
-    t.integer  "page_id"
-  end
-
-  add_index "payment_methods", ["order_id"], name: "index_payment_methods_on_order_id"
-  add_index "payment_methods", ["page_id"], name: "index_payment_methods_on_page_id"
-
   create_table "products", force: :cascade do |t|
     t.string   "product_name"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.integer  "price"
+    t.string   "description"
+    t.integer  "page_id"
   end
+
+  add_index "products", ["page_id"], name: "index_products_on_page_id"
 
   create_table "variations", force: :cascade do |t|
     t.string   "type"
